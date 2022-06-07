@@ -146,7 +146,7 @@ class ParseBurpRequest:
                     self.content_type = v
                 else:
                     self.headers[k] = v
-            if self.request_method.lower != 'get':
+            if self.request_method.lower in ['POST', 'PUT']:
                 self._parseBody(body)
         except Exception as e:
             log.error(e)
