@@ -1,0 +1,2 @@
+# ParseBurpRequest
+python 解析burp请求包 将请求包解析为python对象 方便requests等模块发起请求
