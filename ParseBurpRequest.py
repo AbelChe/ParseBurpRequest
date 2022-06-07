@@ -3,11 +3,19 @@ import sys
 
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
-from log import Logging
+import logging
+
 
 print('Please use python version >=3.7') if sys.version_info.major < 3 or sys.version_info.minor < 7 else "PASS"
 
 
+Logging = logging
+
+Logging.basicConfig(
+    level=logging.INFO,
+    format='%(levelname)s %(asctime)s [%(filename)s:%(lineno)d] %(message)s',
+    datefmt='%Y.%m.%d. %H:%M:%S'
+)
 log = Logging.getLogger(__name__)
 
 
