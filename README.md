@@ -26,5 +26,5 @@ print('jsondata         ', p.jsondata) # body数据 同上, 如果Content-Type�
 3. requests可以提供最简单的重放请求方式, 例如post请求, 无需考虑body数据类型, 只需提供data、json参数即可`requests.post(url=url, params=p.params, data=p.data, json=p.jsondata, headers=p.headers, verify=False)`
 
 效果如下：
-!()[1.png]
-!()[2.png]
+![1.png](1.png)
+![2.png](2.png)
