@@ -1,21 +1,14 @@
 import json
 import sys
+import requests
 
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
-import logging
-
+from log import Logging
 
 print('Please use python version >=3.7') if sys.version_info.major < 3 or sys.version_info.minor < 7 else "PASS"
 
 
-Logging = logging
-
-Logging.basicConfig(
-    level=logging.INFO,
-    format='%(levelname)s %(asctime)s [%(filename)s:%(lineno)d] %(message)s',
-    datefmt='%Y.%m.%d. %H:%M:%S'
-)
 log = Logging.getLogger(__name__)
 
 
@@ -50,6 +43,19 @@ class ParseBurpRequest:
             c[key] = value
             self.headers['Cookie'] = '; '.join(
                 ['{}:{}'.format(k, c[k]) for k in c])
+        except Exception as e:
+            log.error(e)
+
+    def rmCookie(self):
+        try:
+            self.headers.pop('Cookie')
+        except Exception as e:
+            log.error(e)
+
+    def getURL(self, ssl=False):
+        try:
+            scheme = 'https' if ssl else 'http'
+            return f'{scheme}://{self.host}{self.path}'
         except Exception as e:
             log.error(e)
 
@@ -154,8 +160,7 @@ class ParseBurpRequest:
                     self.content_type = v
                 else:
                     self.headers[k] = v
-            if self.request_method.lower in ['POST', 'PUT']:
+            if self.request_method.lower() in ['post', 'put']:
                 self._parseBody(body)
         except Exception as e:
             log.error(e)
-
